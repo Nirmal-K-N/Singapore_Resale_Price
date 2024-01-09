@@ -1,21 +1,12 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 import math
 import pickle
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error,r2_score
-
-# Regression
-from sklearn.linear_model import Lasso, Ridge
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsRegressor
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home","Predict"], 
@@ -94,7 +85,7 @@ elif selected == "Predict":
     FA = st.number_input('Enter Floor Area in sqm',min_value=28.0, max_value=173.0, value=None,placeholder = 'Floor Area')
 
     if T != "" and T is not None and FT != "" and FT is not None and SR != "" and SR is not None and FM != "" and FM is not None:
-        with open(r'C:\Guvi\Project\Singapore - Resale Flat Prices\resale_label_encoders.pkl', 'rb') as f:
+        with open('resale_label_encoders.pkl', 'rb') as f:
             label_encoders = pickle.load(f)
 
         # Your new input data
@@ -118,7 +109,7 @@ elif selected == "Predict":
         storey_range_value = new_df['storey_range'].iloc[0]
         flat_model_value = new_df['flat_model'].iloc[0]
 
-    with open(r'C:\Guvi\Project\Industrial Copper Modeling\resaleprice_model_regressor.pkl', 'rb') as file:
+    with open('resaleprice_model_regressor.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
     # Now you can use the loaded_model for predictions
